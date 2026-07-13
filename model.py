@@ -231,7 +231,6 @@ def play_interactive_game():
             else:
                 player = switch_player(player)
         else:
-            #print('illegal move, try again')
             continue
 
     return status
