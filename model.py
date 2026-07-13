@@ -121,8 +121,15 @@ def check_main_diagonal_win(board, player):
 
     return False
 
-# Step 10 - check_anti_diagonal_win (not yet solved)
-# TODO: implement
+# Step 10 - check_anti_diagonal_win
+import numpy as np
+
+def check_anti_diagonal_win(board, player):
+    # TODO: return True if `player` occupies all three anti-diagonal cells of the 3x3 board.
+    if board[0][2] == player and board[1][1] == player and board[2][0] == player:
+        return True
+
+    return False
 
 # Step 11 - is_winner (not yet solved)
 # TODO: implement
