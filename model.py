@@ -235,8 +235,38 @@ def play_interactive_game():
 
     return status
 
-# Step 18 - TicTacToeGame (not yet solved)
-# TODO: implement
+# Step 18 - TicTacToeGame
+class TicTacToeGame:
+    """Stateful Tic-Tac-Toe environment wrapping the Part 1 engine."""
+
+    def __init__(self):
+        # TODO: initialize board, current_player, and status fields.
+        self.reset()
+
+    def reset(self):
+        # TODO: return board to empty starting state.
+        self.board = create_empty_board()
+        self.current_player = 1
+        self.status = get_game_status(self.board)
+
+    def legal_moves(self):
+        # TODO: list of (row, col) tuples still playable.
+        return get_legal_moves(self.board)
+
+    def is_terminal(self):
+        # TODO: True once status is no longer 'ongoing'.
+        if self.status != 'ongoing':
+            return True
+        return False
+
+    def step(self, row, col):
+        # TODO: play current player's move, refresh status, switch player if still ongoing.
+        if self.is_terminal():
+            raise ValueError
+        self.board = place_move(self.board, row, col, self.current_player)
+        self.status = get_game_status(self.board)
+        if not self.is_terminal():
+            self.current_player = switch_player(self.current_player)
 
 # Step 19 - random_move_agent (not yet solved)
 # TODO: implement
