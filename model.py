@@ -277,8 +277,30 @@ def random_move_agent(board, player, rng):
     available_cells = get_legal_moves(board)
     return tuple(rng.choice(available_cells).tolist())
 
-# Step 20 - play_random_vs_random_game (not yet solved)
-# TODO: implement
+# Step 20 - play_random_vs_random_game
+def play_random_vs_random_game(rng):
+    """Simulate one full random-vs-random game and return the final status."""
+    # TODO: loop until terminal, alternating random moves between X and O
+    board = create_empty_board()
+    player = 1
+    status = 'ongoing'
+
+    while(status == 'ongoing'):
+        agent_move = random_move_agent(board, player, rng)
+        row = agent_move[0]
+        col = agent_move[1]
+
+        if is_cell_empty(board, row, col):
+            board = place_move(board, row, col, player)
+            status = get_game_status(board)
+            if status != 'ongoing':
+                return status
+            else:
+                player = switch_player(player)
+        else:
+            continue
+
+    return status
 
 # Step 21 - play_random_vs_random_matches (not yet solved)
 # TODO: implement
