@@ -328,8 +328,13 @@ def compute_outcome_rates(outcomes):
         'draw_rate':(outcomes.count('draw') / len(outcomes))
         }
 
-# Step 23 - minimax_terminal_score (not yet solved)
-# TODO: implement
+# Step 23 - minimax_terminal_score
+def minimax_terminal_score(status):
+    """Return +1 for 'X_win', -1 for 'O_win', 0 for 'draw'."""
+    # TODO: map a terminal status string to its minimax leaf value.
+    minimax_dict = {'X_win':+1, 'O_win':-1, 'draw':0}
+
+    return minimax_dict[status]
 
 # Step 24 - minimax_value (not yet solved)
 # TODO: implement
