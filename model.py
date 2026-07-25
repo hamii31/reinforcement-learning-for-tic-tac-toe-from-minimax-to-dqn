@@ -418,7 +418,7 @@ def minimax_max_min_step(board, player):
 def minimax_best_move(board, player):
     """Return the optimal (row, col) move for `player` via minimax."""
     # TODO: use the minimax max/min step to pick the best legal move for player
-    best_score, best_move = minimax_max_min_step(board, player)
+    _, best_move = minimax_max_min_step(board, player)
     return best_move
 
 # Step 28 - minimax_alpha_beta (not yet solved)
