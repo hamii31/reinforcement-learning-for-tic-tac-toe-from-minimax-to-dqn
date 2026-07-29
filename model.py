@@ -421,8 +421,44 @@ def minimax_best_move(board, player):
     _, best_move = minimax_max_min_step(board, player)
     return best_move
 
-# Step 28 - minimax_alpha_beta (not yet solved)
-# TODO: implement
+# Step 28 - minimax_alpha_beta
+import numpy as np
+
+def minimax_alpha_beta(board, player, alpha, beta):
+    """Return (best_score, best_move) for `player` using alpha-beta pruning."""
+    # TODO: search the game tree with alpha-beta pruning and return (score, move)
+    status = get_game_status(board)
+    if status != 'ongoing':
+        return minimax_terminal_score(status), None
+
+    legal_moves = get_legal_moves(board)
+    next_player = switch_player(player)
+    best_move = None
+
+    if player == 1:
+        best_score = -np.inf
+        for row, col in legal_moves:
+            new_board = place_move(board, row, col, player)
+            score, _ = minimax_alpha_beta(new_board, next_player, alpha, beta)
+            if score > best_score:
+                best_score = score
+                best_move = (row, col)
+            alpha = max(alpha, best_score)
+            if alpha >= beta:
+                break
+        return best_score, best_move
+    else:
+        best_score = np.inf
+        for row, col in legal_moves:
+            new_board = place_move(board, row, col, player)
+            score, _ = minimax_alpha_beta(new_board, next_player, alpha, beta)
+            if score < best_score:
+                best_score = score
+                best_move = (row, col)
+            beta = min(beta, best_score)
+            if beta <= alpha:
+                break
+        return best_score, best_move
 
 # Step 29 - play_minimax_vs_random_matches (not yet solved)
 # TODO: implement
