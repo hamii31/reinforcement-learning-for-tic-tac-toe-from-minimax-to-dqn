@@ -318,9 +318,9 @@ def compute_outcome_rates(outcomes):
     # TODO: count occurrences of each outcome and divide by total games
     if not outcomes:
         return {
-        'x_win_rate':0,
-        'o_win_rate':0,
-        'draw_rate':0
+        'x_win_rate':0.0,
+        'o_win_rate':0.0,
+        'draw_rate':0.0
         }
     return {
         'x_win_rate':(outcomes.count('X_win') / len(outcomes)),
@@ -460,8 +460,66 @@ def minimax_alpha_beta(board, player, alpha, beta):
                 break
         return best_score, best_move
 
-# Step 29 - play_minimax_vs_random_matches (not yet solved)
-# TODO: implement
+# Step 29 - play_minimax_vs_random_matches
+def play_minimax_vs_random_matches(n_games, minimax_plays_x, rng):
+    # TODO: run n_games of minimax vs random and return aggregated outcome rates.
+    outcomes = []
+    for _ in range(n_games):
+        board = create_empty_board()
+        status = 'ongoing'
+
+        while(status == 'ongoing'):
+            if minimax_plays_x:
+                player = 1
+                _, best_move = minimax_alpha_beta(board, player, alpha=-np.inf, beta=np.inf)
+                row = best_move[0]
+                col = best_move[1]
+
+                if is_cell_empty(board, row, col):
+                    board = place_move(board, row, col, player)
+                    status = get_game_status(board)
+                    if status != 'ongoing':
+                        outcomes.append(status)
+                        break
+                    else:
+                        player = switch_player(player)
+                        rng_agent_move = random_move_agent(board, player, rng)
+                        row = rng_agent_move[0]
+                        col = rng_agent_move[1]
+
+                        if is_cell_empty(board, row, col):
+                            board = place_move(board, row, col, player)
+                            status = get_game_status(board)
+                            if status != 'ongoing':
+                                outcomes.append(status)
+                                break
+            else:
+                player = 1
+                rng_agent_move = random_move_agent(board, player, rng)
+                row = rng_agent_move[0]
+                col = rng_agent_move[1]
+                
+                if is_cell_empty(board, row, col):
+                    board = place_move(board, row, col, player)
+                    status = get_game_status(board)
+                    if status != 'ongoing':
+                        outcomes.append(status)
+                        break
+                    else:
+                        player = switch_player(player)
+                        _, best_move = minimax_alpha_beta(board, player, alpha=-np.inf, beta=np.inf)
+                        row = best_move[0]
+                        col = best_move[1]
+                
+                        if is_cell_empty(board, row, col):
+                            board = place_move(board, row, col, player)
+                            status = get_game_status(board)
+                            if status != 'ongoing':
+                                outcomes.append(status)
+                                break
+
+        outcomes.append(status)
+    return compute_outcome_rates(outcomes)
 
 # Step 30 - play_minimax_vs_minimax_matches (not yet solved)
 # TODO: implement
