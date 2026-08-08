@@ -559,8 +559,23 @@ def play_minimax_vs_minimax_matches(n_games):
 
     return rates
 
-# Step 31 - encode_board_state_key (not yet solved)
-# TODO: implement
+# Step 31 - encode_board_state_key
+import numpy as np
+
+def encode_board_state_key(board):
+    """Encode a 3x3 board as a length-9 string over {'0','1','2'} in row-major order."""
+    # TODO: map each cell (0, 1, -1) to a single character and join row-major.
+    state_key = ""
+    for row in range(len(board)):
+        for cell in range(len(board[row])):
+            if board[row][cell] == 1:
+                state_key += '1'
+            if board[row][cell] == -1:
+                state_key += '2'
+            if board[row][cell] == 0:
+                state_key += '0'
+
+    return state_key
 
 # Step 32 - canonical_board_key (not yet solved)
 # TODO: implement
